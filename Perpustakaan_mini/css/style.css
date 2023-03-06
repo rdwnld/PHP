@@ -1,0 +1,73 @@
+*{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+.tambah {
+    width: 100px;
+    margin-bottom: 10px;
+    background-color: green;
+    color: white;
+    border-radius: 3px;
+    padding: 8px;
+}
+
+.tambah:hover {
+    background-color: darkgreen;
+}
+
+
+.ubah {
+    margin: 10px;
+    background-color: orange;
+    border-radius: 3px;
+    float: left;
+    padding: 8px;
+}
+
+.ubah:hover {
+    background-color: darkorange;
+}
+
+.hapus {
+    margin: 10px;
+    background-color: red;
+    border-radius: 3px;
+    float: left;
+    padding: 8px;
+
+}
+
+.hapus:hover {
+    background-color: darkred;
+}
+
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+.menu{
+    width: 100px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    background-color: rgb(255, 119, 0);
+    color: white;
+    border-radius: 3px;
+    padding: 8px;
+}
+
+.menu:hover{
+    background-color: rgb(226, 105, 0);
+}
+
+.lo{
+    width: 100px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    background-color: rgb(255, 0, 0);
+    color: white;
+    border-radius: 3px;
+    padding: 8px;
+}
