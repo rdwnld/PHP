@@ -64,7 +64,7 @@ if (@$_GET['act'] == 'hapus_user') {
 
 // PROSES SISWA
 
-// PROSES SIMPAN USER
+// PROSES SIMPAN SISWA
 if (@$_POST['simpan_siswa']) {
     $nisn = $_POST['nisn'];
     $nama = $_POST['nama'];
@@ -73,9 +73,9 @@ if (@$_POST['simpan_siswa']) {
 
     $perpus->simpan_siswa($nisn, $nama, $kelas, $foto);
 }
-// PROSES SIMPAN USER END
+// PROSES SIMPAN SISWA END
 
-// PROSES UBAH USER
+// PROSES UBAH SISWA
 if (@$_POST['ubah_siswa']) {
     $id = $_POST['id'];
 
@@ -86,13 +86,52 @@ if (@$_POST['ubah_siswa']) {
 
     $perpus->ubah_siswa($nisn, $nama, $kelas, $foto, $id);
 }
-// PROSES UBAH USER END
+// PROSES UBAH SISWA END
 
-// PROSES HAPUS USER
+// PROSES HAPUS SISWA
 if (@$_GET['act'] == 'hapus_siswa') {
     $id = $_GET['id'];
 
     $perpus->hapus_siswa($id);
 }
-// PROSES HAPUS USER END
+// PROSES HAPUS SISWA END
 // PROSES SISWA END
+
+
+
+// PROSES buku
+
+// PROSES SIMPAN buku
+if (@$_POST['simpan_buku']) {
+    $jb = $_POST['judul_buku'];
+    $desk = $_POST['deskripsi'];
+    $penulis = $_POST['penulis'];
+    $penerbit = $_POST['penerbit'];
+    $cover = $_FILES['cover']['name'];
+
+    $perpus->simpan_buku($jb, $desk, $penulis, $penerbit, $cover);
+}
+// PROSES SIMPAN buku END
+
+// PROSES UBAH buku
+if (@$_POST['ubah_buku']) {
+    $id = $_POST['id'];
+
+    $jb = $_POST['judul_buku'];
+    $desk = $_POST['deskripsi'];
+    $penulis = $_POST['penulis'];
+    $penerbit = $_POST['penerbit'];
+    $cover = $_FILES['cover']['name'];
+
+    $perpus->ubah_buku($jb, $desk, $penulis, $penerbit, $cover, $id);
+}
+// PROSES UBAH buku END
+
+// PROSES HAPUS buku
+if (@$_GET['act'] == 'hapus_buku') {
+    $id = $_GET['id'];
+
+    $perpus->hapus_buku($id);
+}
+// PROSES HAPUS buku END
+// PROSES buku END

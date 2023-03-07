@@ -149,26 +149,26 @@ class perpustakaan
             } else {
                 echo "File Gagal Diupload" . $error;
             }
-        }
+            $query = $this->koneksi->query("INSERT INTO siswa VALUES(null,'$nisn','$nama','$kelas','$foto')");
 
-        $query = $this->koneksi->query("INSERT INTO siswa VALUES(null,'$nisn','$nama','$kelas','$foto')");
-
-        if ($query) {
-            session_start();
-            $_SESSION['success'] = "Siswa berhasil di tambah";
-            header('location:../dashboard.php?pages=siswa');
+            if ($query) {
+                session_start();
+                $_SESSION['success'] = "Siswa berhasil di tambah";
+                header('location:../dashboard.php?pages=siswa');
+            }
         }
     }
     public function ubah_siswa($nisn, $nama, $kelas, $foto, $id)
     {
-        if ($nisn == '' || $nama == '' || $kelas == '' || $foto == '') {
-            $query = $this->koneksi->query("UPDATE siswa SET nisn='$nisn',nama='$nama',kelas='$kelas',foto='$foto' WHERE siswa_id=$id");
+        if ($kelas == '' || $foto == '') {
+            $query = $this->koneksi->query("UPDATE siswa SET nisn='$nisn',nama='$nama' WHERE siswa_id=$id");
         } else {
             $query = $this->koneksi->query("UPDATE siswa SET nisn='$nisn',nama='$nama',kelas='$kelas',foto='$foto' WHERE siswa_id=$id");
         }
+
         if ($query) {
             session_start();
-            $_SESSION['success'] = "User berhasil di ubah";
+            $_SESSION['success'] = "Siswa berhasil di ubah";
             header('location:../dashboard.php?pages=siswa');
         }
     }
@@ -198,6 +198,114 @@ class perpustakaan
 
     // DATA SISWA END
 
+    // DATA BUKU
+    public function list_buku()
+    {
+
+        $query = $this->koneksi->query("SELECT * FROM buku");
+        while ($data = $query->fetch_object()) {
+            $hasil[] = $data;
+        }
+        return $hasil;
+    }
+
+    public function simpan_buku($jb, $desk, $penulis, $penerbit, $cover)
+    {
+        if ($jb == '' || $desk == '' || $penulis == '' || $penerbit == '' || $cover == '') {
+
+            session_start();
+            $_SESSION['warning'] = "Data belum diisi, isi terlebih dahulu";
+            header('location:../dashboard.php?pages=buku&act=tambah');
+        } else {
+            $ukuran = $_FILES['gambar']['size'];
+            $error = $_FILES['gambar']['error'];
+
+            if ($ukuran > 0 || $error == 0) {
+                $move = move_uploaded_file($_FILES['cover']['tmp_name'], '../assets/images/' . $cover);
+                if ($move) {
+                    echo "File '$cover' dengan ukuran $ukuran sudah terupload";
+                } else {
+                    echo "Terjadi kesalahan mengupload";
+                }
+            } else {
+                echo "File Gagal Diupload" . $error;
+            }
+            $query = $this->koneksi->query("INSERT INTO buku VALUES(null,'$jb','$desk','$penulis','$penerbit','$cover')");
+
+            if ($query) {
+                session_start();
+                $_SESSION['success'] = "Buku berhasil di tambah";
+                header('location:../dashboard.php?pages=buku');
+            }
+        }
+    }
+    public function ubah_buku($jb, $desk, $penulis, $penerbit, $cover, $id)
+    {
+
+        if ($jb == '' || $desk == '' || $penulis == '' || $penerbit == '' || $cover == '') {
+            session_start();
+            $_SESSION['success'] = "buku berhasil di ubah";
+            header('location:../dashboard.php?pages=buku');
+        } else {
+            $this->koneksi->query("UPDATE buku SET judul_buku='$jb',deskripsi='$desk',penulis='$penulis',penerbit='$penerbit',cover='$cover' WHERE buku_id=$id");
+            session_start();
+            $_SESSION['success'] = "buku berhasil di ubah";
+            header('location:../dashboard.php?pages=buku');
+        }
+    }
+
+    public function tampil_ubah_buku($id)
+    {
+        $query = $this->koneksi->query("SELECT * FROM buku where buku_id=$id");
+        $data = $query->fetch_object();
+        return $data;
+    }
+
+    public function hapus_buku($id)
+    {
+        $query = $this->koneksi->query("DELETE FROM buku where buku_id=$id");
+
+        if ($query) {
+            session_start();
+            $_SESSION['success'] = "User berhasil di hapus";
+            header('location:../dashboard.php?pages=buku');
+        }
+    }
+    public function jumlah_buku()
+    {
+        $query = $this->koneksi->query("SELECT * FROM buku");
+        return $query->num_rows;
+    }
+    // DATA BUKU END
+
+
+    // DATA PEMINJAMAN
+
+    public function peminjaman()
+    {
+        $query = $this->koneksi->query("SELECT * FROM peminjaman
+        inner join buku on buku.buku_id = peminjaman.buku_id
+        inner join siswa on siswa.nisn = peminjaman.nisn
+        ");
+        $data = $query->fetch_object();
+        return $data;
+    }
+    public function cari_siswa()
+    {
+        $nisn = $_GET['nisn'];
+        $query = $this->koneksi->query("SELECT * FROM siswa WHERE nisn='$nisn'");
+        $data = $query->fetch_object();
+        return $data;
+    }
+
+    public function cari_buku()
+    {
+        $query = $this->koneksi->query('SELECT * FROM buku');
+        $data = $query->fetch_object();
+        return $data;
+    }
+
+    // DATA PEMINJAMAN END
 
 
 

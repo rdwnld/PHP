@@ -21,7 +21,7 @@
             </div>
             <div class="form-group">
                 <input type="submit" class="btn btn-success" name="simpan_siswa" value="Tambah">
-                <a href="dashboard.php?pages=users" class="btn btn-outline-success">Kembali</a>
+                <a href="dashboard.php?pages=siswa" class="btn btn-outline-success">Kembali</a>
             </div>
         </div>
     </div>

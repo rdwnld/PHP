@@ -222,13 +222,12 @@ include 'controllers/db.php';
             <div class="card-body p-3">
               <div class="row">
                 <div class="col-8">
-                  <div class="numbers">
-
-                  </div>
+                  <p>Jumlah Siswa</p>
+                  <?= $perpus->jumlah_siswa(); ?>
                 </div>
                 <div class="col-4 text-end">
                   <div class="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
-                    <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
+                    <i class="ni ni-single-02 text-lg opacity-10" aria-hidden="true"></i>
                   </div>
                 </div>
               </div>
@@ -240,13 +239,12 @@ include 'controllers/db.php';
             <div class="card-body p-3">
               <div class="row">
                 <div class="col-8">
-                  <div class="numbers">
-
-                  </div>
+                  <p>Jumlah Buku</p>
+                  <?= $perpus->jumlah_buku(); ?>
                 </div>
                 <div class="col-4 text-end">
                   <div class="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
-                    <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
+                    <i class="ni ni-books text-lg opacity-10" aria-hidden="true"></i>
                   </div>
                 </div>
               </div>
@@ -258,9 +256,7 @@ include 'controllers/db.php';
             <div class="card-body p-3">
               <div class="row">
                 <div class="col-8">
-                  <div class="numbers">
-
-                  </div>
+                  <p>Peminjam</p>
                 </div>
                 <div class="col-4 text-end">
                   <div class="icon icon-shape bg-gradient-warning shadow-warning text-center rounded-circle">
@@ -291,7 +287,16 @@ include 'controllers/db.php';
                   include('views/petugas/users/users.php');
                 }
               } elseif ($pages == 'buku') {
-                include('views/petugas/buku/buku.php');
+                @$act = $_GET['act'];
+                if ($act == 'tambah') {
+                  include('views/petugas/buku/tambah.php');
+                } elseif ($act == 'ubah') {
+                  include('views/petugas/buku/ubah.php');
+                } elseif ($act == 'hapus') {
+                  include('views/petugas/buku/users.php');
+                } else {
+                  include('views/petugas/buku/buku.php');
+                }
               } elseif ($pages == 'siswa') {
                 @$act = $_GET['act'];
                 if ($act == 'tambah') {
@@ -299,12 +304,17 @@ include 'controllers/db.php';
                 } elseif ($act == 'ubah') {
                   include('views/petugas/siswa/ubah.php');
                 } elseif ($act == 'hapus') {
-                  include('views/petugas/siswa/siswa.php');
+                  include('views/petugas/siswa/users.php');
                 } else {
                   include('views/petugas/siswa/siswa.php');
                 }
               } elseif ($pages == 'peminjaman') {
-                include('views/petugas/peminjaman/peminjaman.php');
+                @$act = $_GET['act'];
+                if ($act == 'tambah') {
+                  include('views/petugas/peminjaman/tambah.php');
+                } else {
+                  include('views/petugas/peminjaman/peminjaman.php');
+                }
               } elseif ($pages == 'data_peminjaman') {
                 include('views/siswa/data_peminjaman.php');
               }
