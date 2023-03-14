@@ -163,6 +163,7 @@ class perpustakaan
         if ($kelas == '' || $foto == '') {
             $query = $this->koneksi->query("UPDATE siswa SET nisn='$nisn',nama='$nama' WHERE siswa_id=$id");
         } else {
+            move_uploaded_file($_FILES['foto']['tmp_name'], '../assets/images/' . $foto);
             $query = $this->koneksi->query("UPDATE siswa SET nisn='$nisn',nama='$nama',kelas='$kelas',foto='$foto' WHERE siswa_id=$id");
         }
 
@@ -247,6 +248,7 @@ class perpustakaan
             $_SESSION['success'] = "buku berhasil di ubah";
             header('location:../dashboard.php?pages=buku');
         } else {
+            move_uploaded_file($_FILES['cover']['tmp_name'], '../assets/images/' . $cover);
             $this->koneksi->query("UPDATE buku SET judul_buku='$jb',deskripsi='$desk',penulis='$penulis',penerbit='$penerbit',cover='$cover' WHERE buku_id=$id");
             session_start();
             $_SESSION['success'] = "buku berhasil di ubah";
